@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - docker login --username cmalvia --password Mydp@ssw0rd@1137?
+  build:
+    commands:
+      - docker build -t demo:v1 .
+      - docker tag demo:v1 cmalvia/demo:v1
+  post_build:
+    commands:
+      - docker push cmalvia/demo:v1
+      - printf '[{"name":"mylabtd:1","imageUri":"%s"}]' cmalvia/demo:v1 > imagedefinitions.json
+artifacts:
+  files: imagedefinitions.json
+
