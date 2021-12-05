@@ -27,5 +27,5 @@ stage('Scan image with twistcli') {
     }
   
 }
-
+## work and tested on Local setup **
 
