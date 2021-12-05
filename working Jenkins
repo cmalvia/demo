@@ -1,10 +1,10 @@
 node{
   stage('Git Checkout'){
-      git branch: 'main', credentialsId: 'myGit', url: 'https://github.com/cmalvia/my-app'
+      git branch: 'main', credentialsId: 'myGit', url: 'https://github.com/cmalvia/demo'
   }
 
   stage('Build Docker Image'){
-    sh 'docker build -t cmalvia/my-app:v001 .'
+    sh 'docker build -t cmalvia/my-app:v1 .'
   }
 stage('Scan image with twistcli') {
         //withCredentials([usernamePassword(credentialsId: 'twistlock_creds', passwordVariable: 'TL_PASS', usernameVariable: 'TL_USER')]) {
@@ -16,14 +16,14 @@ stage('Scan image with twistcli') {
     withCredentials([string(credentialsId: 'DockerHub-pass', variable: 'GitHub')]) {
       sh "docker login -u cmalvia -p ${GitHub}"
     }
-    sh 'docker push cmalvia/my-app:v001'
+    sh 'docker push cmalvia/my-app:v1'
   }
   
   stage('Remove Old Containers'){
     sh 'docker rm -f my-app'
   }
   stage('Deploy-Dev'){
-    sh 'docker run -d -p 3000:3000 --name my-app cmalvia/my-app:v001'
+    sh 'docker run -d -p 80:3000 --name my-app cmalvia/my-app:v1'
     }
   
 }
