@@ -8,9 +8,9 @@ node{
   }
   stage('Scan image with twistcli') {
         //withCredentials([usernamePassword(credentialsId: 'twistlock_creds', passwordVariable: 'TL_PASS', usernameVariable: 'TL_USER')]) {
-            sh 'curl -k -u admin:P@ssw0rd --output ./twistcli https://ec2-35-74-244-44.ap-northeast-1.compute.amazonaws.com:8083/api/v1/util/twistcli'
+            sh 'curl -k -u admin:P@ssw0rd --output ./twistcli https://ec2-54-95-52-114.ap-northeast-1.compute.amazonaws.com:8083/api/v1/util/twistcli'
             sh 'chmod a+x ./twistcli'
-            sh "./twistcli images scan -u admin -p P@ssw0rd --address https://ec2-35-74-244-44.ap-northeast-1.compute.amazonaws.com:8083 cmalvia/my-app* --details"
+            sh "./twistcli images scan -u admin -p P@ssw0rd --address https://ec2-54-95-52-114.ap-northeast-1.compute.amazonaws.com:8083 cmalvia/my-app* --details"
   }
   stage('Upload Image to DockerHub'){
     withCredentials([string(credentialsId: 'DockerHub-pass', variable: 'GitHub')]) {
